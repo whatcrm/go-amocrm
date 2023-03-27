@@ -1,12 +1,11 @@
 package amocrm
 
 import (
+	"amocrm/models"
 	"github.com/gofiber/fiber/v2"
 	"log"
-	"whatcrm_notify/pkg/amocrm/models"
 )
 
-// TODO Lead Struct
 // TODO GET Parameters in Requests - https://www.amocrm.ru/developers/content/crm_platform/leads-api#leads-list
 
 func (api *API) CreateUnsortedSIP(in *[]models.UnsortedSIP) (out *models.UnsortedSIPResponse, err error) {

@@ -1,8 +1,8 @@
 package amocrm
 
 import (
+	"amocrm/models"
 	"fmt"
-	"whatcrm_notify/pkg/amocrm/models"
 )
 
 //func AuthorizeCRM(clientID, clientSecret, redirectURI, code string) {
