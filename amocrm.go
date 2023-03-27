@@ -1,4 +1,4 @@
-package go_amocrm
+package amocrm
 
 import (
 	"amocrm/models"

@@ -1,4 +1,4 @@
-package go_amocrm
+package amocrm
 
 const (
 	testURL         = "oauth2/account/subdomain"

@@ -1,8 +1,9 @@
-package go_amocrm
+package amocrm
 
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gofiber/fiber/v2"
 	"log"
 	"net/url"
 	"reflect"

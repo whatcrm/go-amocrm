@@ -1,7 +1,8 @@
-package go_amocrm
+package amocrm
 
 import (
 	"fmt"
+	"github.com/gofiber/fiber/v2"
 	"log"
 )
 

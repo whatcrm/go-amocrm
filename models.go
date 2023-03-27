@@ -1,4 +1,4 @@
-package go_amocrm
+package amocrm
 
 // Handler with main data to work with amoCRM
 

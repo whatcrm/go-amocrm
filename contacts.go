@@ -1,1 +1,1 @@
-package go_amocrm
+package amocrm
