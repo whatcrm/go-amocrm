@@ -1,4 +1,4 @@
-package amocrm
+package go_amocrm
 
 //
 //import (
