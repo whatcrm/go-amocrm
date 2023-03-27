@@ -1,7 +1,7 @@
 package amocrm
 
 import (
-	"amocrm/models"
+	"github.com/whatcrm/go-amocrm/models"
 	"github.com/gofiber/fiber/v2"
 	"log"
 )
