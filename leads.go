@@ -2,6 +2,7 @@ package go_amocrm
 
 import (
 	"amocrm/models"
+	"github.com/gofiber/fiber/v2"
 	"log"
 )
 
