@@ -1,8 +1,8 @@
 package amocrm
 
 import (
-	"amocrm/models"
 	"fmt"
+	"github.com/whatcrm/go-amocrm/models"
 )
 
 //func AuthorizeCRM(clientID, clientSecret, redirectURI, code string) {
