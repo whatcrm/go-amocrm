@@ -17,7 +17,8 @@ type OAuth struct {
 	ClientID     string `json:"client_id"`
 	ClientSecret string `json:"client_secret"`
 	GrantType    string `json:"grant_type"`
-	Code         string `json:"refresh_token"`
+	RefreshToken string `json:"refresh_token,omitempty"`
+	Code         string `json:"code,omitempty"`
 	RedirectURI  string `json:"redirect_uri"`
 }
 

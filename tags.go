@@ -6,7 +6,6 @@ package amocrm
 //	"fmt"
 //	"github.com/gofiber/fiber/v2"
 //	"log"
-//	"whatcrm_notify/pkg/amocrm/models"
 //)
 //
 //func (api *API) CreateTag(entity string, tag *[]models.Tag) (*models.TagResponse, error) {
