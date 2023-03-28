@@ -5,10 +5,6 @@ import (
 	"github.com/whatcrm/go-amocrm/models"
 )
 
-//func AuthorizeCRM(clientID, clientSecret, redirectURI, code string) {
-//
-//}
-
 func NewAPI(clientID, clientSecret, redirectURI string) AmoCRM {
 	return &API{
 		ClientID:     clientID,
