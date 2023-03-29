@@ -53,5 +53,16 @@ type AmoCRM interface {
 
 	//CreateTag(entity string, tag *[]models.Tag) (*models.TagResponse, error)
 
+	// CustomersMode - Customers interfaces
+	CustomersMode(in models.CustomersMode) (out models.CustomersMode, err error)
+	CustomersList(customerID string, params *Params) (out []models.Customer, err error)
+	CreateCustomer(in *models.Customer) (out models.RequestResponse, err error)
+	ModifyCustomers(customerID string, in *[]models.Customer) (out models.RequestResponse, err error)
+	TransactionsList(customerID string, params *Params) (out models.RequestResponse, err error)
+	GetTransaction(customerID, transactionID string) (out models.Transaction, err error)
+	SetTransaction(customerID string) (out models.RequestResponse, err error)
+	RemoveTransaction(customerID, transactionID string) (out models.RequestResponse, err error)
+	SetBonusPoints(customerID string, value *models.BonusPoints) (out models.Points, err error)
+
 	log(message ...string)
 }

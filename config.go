@@ -19,8 +19,10 @@ const (
 
 // Customers Constants
 const (
-	customersURL  = "api/v4/customers"
-	customersMode = "api/v4/customers/mode"
+	customersURL    = "api/v4/customers"
+	customersMode   = "api/v4/customers/mode"
+	transactionsURL = "/transactions"
+	bonusPointsURL  = "/bonus_points"
 )
 
 type makeRequestOptions struct {
