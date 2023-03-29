@@ -1,7 +1,8 @@
 package models
 
 type Customer struct {
-	ID                 int         `json:"id"`
+	ID                 int         `json:"id,omitempty"`
+	RequestID          int         `json:"request_id,omitempty"`
 	Name               string      `json:"name"`
 	NextPrice          int         `json:"next_price"`
 	NextDate           int         `json:"next_date"`
@@ -40,4 +41,36 @@ type Customer struct {
 type CustomersMode struct {
 	Mode      string `json:"mode"`
 	IsEnabled bool   `json:"is_enabled"`
+}
+
+type Transaction struct {
+	ID          int    `json:"id"`
+	Price       int    `json:"price"`
+	Comment     string `json:"comment"`
+	CompletedAt int    `json:"completed_at"`
+	CustomerID  int    `json:"customer_id"`
+	CreatedBy   int    `json:"created_by"`
+	UpdatedBy   int    `json:"updated_by"`
+	CreatedAt   int    `json:"created_at"`
+	UpdatedAt   int    `json:"updated_at"`
+	IsDeleted   bool   `json:"is_deleted"`
+	AccountID   int    `json:"account_id"`
+	Links       struct {
+		Self struct {
+			Href string `json:"href"`
+		} `json:"self"`
+	} `json:"_links"`
+	Embedded struct {
+		Customer Customer `json:"customer"`
+	} `json:"_embedded"`
+}
+
+type BonusPoints struct {
+	// Both values are not allowed
+	Earn   int `json:"earn,omitempty"`
+	Redeem int `json:"redeem,omitempty"`
+}
+
+type Points struct {
+	BonusPoints int `json:"bonus_points"`
 }
