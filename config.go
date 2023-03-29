@@ -1,16 +1,26 @@
 package amocrm
 
 const (
-	testURL         = "oauth2/account/subdomain"
-	accessTokenURL  = "oauth2/access_token"
-	getAccountURL   = "api/v4/account"
-	httpURL         = "https://"
-	amocrmURL       = "www.amocrm.ru"
-	noEntityURL     = "api/v4/"
+	testURL        = "oauth2/account/subdomain"
+	accessTokenURL = "oauth2/access_token"
+	getAccountURL  = "api/v4/account"
+	httpURL        = "https://"
+	amocrmURL      = "www.amocrm.ru"
+	noEntityURL    = "api/v4/"
+)
+
+// Leads Constants
+const (
 	leadURL         = "api/v4/leads"
 	leadUnsorted    = "api/v4/leads/unsorted"
 	leadComplexURL  = "api/v4/leads/complex"
 	leadUnsortedSIP = "api/v4/leads/unsorted/sip"
+)
+
+// Customers Constants
+const (
+	customersURL  = "api/v4/customers"
+	customersMode = "api/v4/customers/mode"
 )
 
 type makeRequestOptions struct {

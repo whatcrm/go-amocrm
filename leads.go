@@ -48,11 +48,11 @@ func (api *API) GetUnsorted(id string, params *Params) (unsorted []models.Unsort
 		return
 	} else {
 		// All unsorted leads
-		options.Out = &models.LeadResponse{}
+		options.Out = &models.RequestResponse{}
 		if err = api.makeRequest(options); err != nil {
 			return
 		}
-		unsorted = options.Out.(*models.LeadResponse).Embedded.Unsorted
+		unsorted = options.Out.(*models.RequestResponse).Embedded.Unsorted
 		api.log("returning the struct...")
 		return
 	}
@@ -81,18 +81,18 @@ func (api *API) GetLeads(id string, params *Params) (lead []models.Lead, err err
 		return
 	} else {
 		// All leads
-		options.Out = &models.LeadResponse{}
+		options.Out = &models.RequestResponse{}
 		err = api.makeRequest(options)
 		if err != nil {
 			return
 		}
-		lead = options.Out.(*models.LeadResponse).Embedded.Leads
+		lead = options.Out.(*models.RequestResponse).Embedded.Leads
 		api.log("returning the struct...")
 		return
 	}
 }
 
-func (api *API) CreateLeads(lead *[]models.Lead, params *Params) (resp models.LeadResponse, err error) {
+func (api *API) CreateLeads(lead *[]models.Lead, params *Params) (resp models.RequestResponse, err error) {
 	api.log("CreateLeads request is started...")
 
 	options := makeRequestOptions{

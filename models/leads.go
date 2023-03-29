@@ -48,19 +48,6 @@ type LeadEmbedded struct {
 	Contacts  []Contact `json:"contacts,omitempty"`
 }
 
-type LeadResponse struct {
-	Page  int `json:"_page,omitempty"`
-	Links struct {
-		Self struct {
-			Href string `json:"href,omitempty"`
-		} `json:"self,omitempty"`
-	} `json:"_links,omitempty"`
-	Embedded struct {
-		Leads    []Lead     `json:"leads,omitempty"`
-		Unsorted []Unsorted `json:"unsorted,omitempty"`
-	} `json:"_embedded,omitempty"`
-}
-
 type LeadComplexResponse struct {
 	ID        int      `json:"id,omitempty"`
 	ContactID int      `json:"contact_id,omitempty"`

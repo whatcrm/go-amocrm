@@ -45,7 +45,7 @@ type AmoCRM interface {
 	GetUnsorted(id string, params *Params) (unsorted []models.Unsorted, err error)
 	CreateUnsortedSIP(in *[]models.UnsortedSIP) (out *models.UnsortedSIPResponse, err error)
 
-	CreateLeads(lead *[]models.Lead, params *Params) (reps models.LeadResponse, err error)
+	CreateLeads(lead *[]models.Lead, params *Params) (reps models.RequestResponse, err error)
 	CreateLeadsComplex(lead *[]models.Lead) (resp []models.LeadComplexResponse, err error)
 	ModifyLead(id string, lead *models.Lead, params *Params) (resp models.LeadModifyResponse, err error)
 
