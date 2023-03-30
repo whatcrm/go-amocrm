@@ -57,7 +57,7 @@ func (api *API) CustomersList(customerID string, params *Params) (out []models.C
 	}
 }
 
-func (api *API) CreateCustomer(in *models.Customer) (out models.RequestResponse, err error) {
+func (api *API) CreateCustomer(in *[]models.Customer) (out models.RequestResponse, err error) {
 	api.log("CreateCustomer request is started...")
 
 	options := makeRequestOptions{
