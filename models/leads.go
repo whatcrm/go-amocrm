@@ -93,13 +93,6 @@ type UnsortedSIP struct {
 	Metadata   SIPmd            `json:"metadata,omitempty"`
 }
 
-type UnsortedSIPResponse struct {
-	TotalItems int `json:"_total_items"`
-	Embedded   struct {
-		Unsorted []Unsorted `json:"unsorted"`
-	} `json:"_embedded"`
-}
-
 type UnsortedForms struct {
 	RequestID  string           `json:"request_id"`
 	SourceName string           `json:"source_name,omitempty"`

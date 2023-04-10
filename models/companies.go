@@ -10,7 +10,7 @@ type Company struct {
 	UpdatedAt         int             `json:"updated_at,omitempty"`
 	CustomFieldsValue []CustomFields  `json:"custom_fields_value,omitempty"`
 	CompanyEmbedded   CompanyEmbedded `json:"_embedded,omitempty"`
-	RequestID         int             `json:"request_id,omitempty"`
+	RequestID         string          `json:"request_id,omitempty"`
 	Links             struct {
 		Self struct {
 			Href string `json:"href,omitempty"`

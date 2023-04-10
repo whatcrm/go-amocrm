@@ -17,12 +17,35 @@ const (
 	leadUnsortedSIP = "api/v4/leads/unsorted/sip"
 )
 
+// Contacts Constants
+const (
+	contactsURL     = "api/v4/contacts"
+	contactsChatURL = "api/v4/contacts/chats"
+)
+
+// Company Constants
+const (
+	companiesURL = "api/v4/companies"
+)
+
+// EntityConstants
+const (
+	tagsURL  = "/tags"
+	linksURL = "/links"
+)
+
 // Customers Constants
 const (
 	customersURL    = "api/v4/customers"
 	customersMode   = "api/v4/customers/mode"
 	transactionsURL = "/transactions"
 	bonusPointsURL  = "/bonus_points"
+
+	customerSegmentsURL = "api/v4/customers/segments"
+	customerStatusesURL = "api/v4/customers/statuses"
+
+	CustomerModeSegments    = "segments"
+	CustomerModePeriodicity = "periodicity"
 )
 
 type makeRequestOptions struct {
@@ -34,16 +57,24 @@ type makeRequestOptions struct {
 	In interface{}
 	// Out is a struct, which will be unmarshalled
 	Out interface{}
-	// Params is an URL Parameters
+	// Params is a URL Parameters
 	Params *Params
 }
 
 type Params struct {
-	// The struct contains parameters for requests params, i.e. https://example.com/api/v4/leads?query=
-	With   string
-	Page   string
-	Limit  string
-	Query  string
-	Filter string
-	Order  string
+	With      With
+	Page      string
+	Limit     string
+	Query     string
+	Filter    string
+	Order     string
+	ContactID string
+	ChatID    string
+}
+
+type With struct {
+	CatalogElements bool
+	Contacts        bool
+	Leads           bool
+	Companies       bool
 }

@@ -8,7 +8,7 @@ import (
 
 // TODO GET Parameters in Requests - https://www.amocrm.ru/developers/content/crm_platform/leads-api#leads-list
 
-func (api *API) CreateUnsortedSIP(in *[]models.UnsortedSIP) (out *models.UnsortedSIPResponse, err error) {
+func (api *API) CreateUnsortedSIP(in *[]models.UnsortedSIP) (out *models.MainResponse, err error) {
 	api.log("CreateUnsortedSIP request is started...")
 
 	options := makeRequestOptions{
