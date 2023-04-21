@@ -1,7 +1,7 @@
 package amocrm
 
 const (
-	testURL        = "oauth2/account/subdomain"
+	accountURL     = "oauth2/account/subdomain"
 	accessTokenURL = "oauth2/access_token"
 	getAccountURL  = "api/v4/account"
 	httpURL        = "https://"

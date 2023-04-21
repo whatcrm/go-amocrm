@@ -49,3 +49,23 @@ func (api *API) GetAccount(params *Params) (acc Account, err error) {
 	log.Printf("%+v", acc)
 	return
 }
+
+func (api *API) OauthAccount(params *Params) (acc Account, err error) {
+	// INFO - PARAMETERS: WITH
+	api.log("OAuthAccount request is started...")
+
+	options := makeRequestOptions{
+		Method:  fiber.MethodGet,
+		BaseURL: accountURL,
+		In:      nil,
+		Out:     &acc,
+		Params:  params,
+	}
+	if err = api.makeRequest(options); err != nil {
+		return
+	}
+
+	api.log("returning the struct...")
+	log.Printf("%+v", acc)
+	return
+}

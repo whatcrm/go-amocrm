@@ -38,6 +38,7 @@ type AmoCRM interface {
 	SetOptions(domain, token string, debug bool) error
 	TokenUPD(oAuth *OAuth) (*Tokens, error)
 	GetAccount(params *Params) (acc Account, err error)
+	OauthAccount(params *Params) (acc Account, err error)
 
 	//GetLeads - Leads interfaces
 	GetLeads(id string, params *Params) ([]models.Lead, error)
