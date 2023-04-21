@@ -31,6 +31,13 @@ type Tokens struct {
 	ExpiresIn    int    `json:"expires_in"`
 }
 
+type OauthAccount struct {
+	ID             int    `json:"id"`
+	Subdomain      string `json:"subdomain"`
+	Domain         string `json:"domain"`
+	TopLevelDomain string `json:"top_level_domain"`
+}
+
 // Account represents amoCRM Account entity json DTO.
 type Account struct {
 	ID                      int    `json:"id"`

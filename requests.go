@@ -50,8 +50,7 @@ func (api *API) GetAccount(params *Params) (acc Account, err error) {
 	return
 }
 
-func (api *API) OauthAccount(params *Params) (acc Account, err error) {
-	// INFO - PARAMETERS: WITH
+func (api *API) SubdomainFromToken() (acc OauthAccount, err error) {
 	api.log("OAuthAccount request is started...")
 
 	options := makeRequestOptions{
@@ -59,7 +58,6 @@ func (api *API) OauthAccount(params *Params) (acc Account, err error) {
 		BaseURL: accountURL,
 		In:      nil,
 		Out:     &acc,
-		Params:  params,
 	}
 	if err = api.makeRequest(options); err != nil {
 		return
