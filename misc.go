@@ -18,7 +18,7 @@ func (api *API) getAgent(method, baseURL string, params *Params) (*fiber.Agent, 
 	req.Header.SetCanonical([]byte("Authorization"), []byte("Bearer "+api.AccessToken))
 
 	if baseURL == accountURL {
-		req.SetRequestURI("https://amocrm.ru/" + accountURL)
+		req.SetRequestURI("https://www.amocrm.ru/oauth2/account/subdomain")
 		return a, req
 	} else {
 		req = isParams(req, api.Domain, baseURL, params)
