@@ -16,10 +16,14 @@ func (api *API) getAgent(method, baseURL string, params *Params) (*fiber.Agent, 
 	req.Header.SetMethod(method)
 	req.Header.SetContentType(fiber.MIMEApplicationJSON)
 	req.Header.SetCanonical([]byte("Authorization"), []byte("Bearer "+api.AccessToken))
-	req = isParams(req, api.Domain, baseURL, params)
 
-	//req.SetRequestURI("https://awachecker.whatcrm.net/test")
-	return a, req
+	if baseURL == accountURL {
+		req.SetRequestURI("https://amocrm.ru/" + accountURL)
+		return a, req
+	} else {
+		req = isParams(req, api.Domain, baseURL, params)
+		return a, req
+	}
 }
 
 func (api *API) makeRequest(options makeRequestOptions) (err error) {
