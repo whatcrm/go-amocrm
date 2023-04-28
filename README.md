@@ -38,7 +38,7 @@ go get github.com/whatcrm/go-amocrm/models
 
 ## Ecosystem / Documentations
 
-- [amoCRM documentation](https://www.amocrm.ru/developers/content/crm_platform/platform-abilities)
+- [amoCRM documentation](https://www.amocrm.ru/developers/content/integrations/intro)
 - [Kommo documentation](https://www.kommo.com/developers/content/integrations/starting_the_work/)
 - [Fiber Web Framework documentation](https://docs.gofiber.io/)
 
