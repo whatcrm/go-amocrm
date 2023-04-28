@@ -8,8 +8,8 @@ import (
 
 // TODO GET Parameters in Requests - https://www.amocrm.ru/developers/content/crm_platform/leads-api#leads-list
 
-func (api *API) CreateUnsortedSIP(in *[]models.UnsortedSIP) (out *models.MainResponse, err error) {
-	api.log("CreateUnsortedSIP request is started...")
+func (c *Create) UnsortedSIP(in *[]models.UnsortedSIP) (out *models.MainResponse, err error) {
+	c.api.log("CreateUnsortedSIP request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPost,
@@ -19,15 +19,15 @@ func (api *API) CreateUnsortedSIP(in *[]models.UnsortedSIP) (out *models.MainRes
 		Params:  nil,
 	}
 
-	err = api.makeRequest(options)
+	err = c.api.makeRequest(options)
 	if err != nil {
 		return
 	}
 	return
 }
 
-func (api *API) GetUnsorted(id string, params *Params) (unsorted []models.Unsorted, err error) {
-	api.log("GetUnsorted request is started...")
+func (c *Get) Unsorted(id string, params *Params) (unsorted []models.Unsorted, err error) {
+	c.api.log("GetUnsorted request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodGet,
@@ -40,26 +40,26 @@ func (api *API) GetUnsorted(id string, params *Params) (unsorted []models.Unsort
 	if id != "" {
 		// ID exists
 		options.BaseURL += "/" + id
-		if err = api.makeRequest(options); err != nil {
+		if err = c.api.makeRequest(options); err != nil {
 			return
 		}
 		unsorted = []models.Unsorted{*options.Out.(*models.Unsorted)}
-		api.log("returning the struct...")
+		c.api.log("returning the struct...")
 		return
 	} else {
 		// All unsorted leads
 		options.Out = &models.RequestResponse{}
-		if err = api.makeRequest(options); err != nil {
+		if err = c.api.makeRequest(options); err != nil {
 			return
 		}
 		unsorted = options.Out.(*models.RequestResponse).Embedded.Unsorted
-		api.log("returning the struct...")
+		c.api.log("returning the struct...")
 		return
 	}
 }
 
-func (api *API) GetLeads(id string, params *Params) (lead []models.Lead, err error) {
-	api.log("GetLead request is started...")
+func (c *Get) Leads(id string, params *Params) (lead []models.Lead, err error) {
+	c.api.log("GetLead request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodGet,
@@ -72,28 +72,28 @@ func (api *API) GetLeads(id string, params *Params) (lead []models.Lead, err err
 	if id != "" {
 		// ID exists
 		options.BaseURL += "/" + id
-		err = api.makeRequest(options)
+		err = c.api.makeRequest(options)
 		if err != nil {
 			return
 		}
 		lead = []models.Lead{*options.Out.(*models.Lead)}
-		api.log("returning the struct...")
+		c.api.log("returning the struct...")
 		return
 	} else {
 		// All leads
 		options.Out = &models.RequestResponse{}
-		err = api.makeRequest(options)
+		err = c.api.makeRequest(options)
 		if err != nil {
 			return
 		}
 		lead = options.Out.(*models.RequestResponse).Embedded.Leads
-		api.log("returning the struct...")
+		c.api.log("returning the struct...")
 		return
 	}
 }
 
-func (api *API) CreateLeads(lead *[]models.Lead, params *Params) (resp models.RequestResponse, err error) {
-	api.log("CreateLeads request is started...")
+func (c *Create) Leads(lead *[]models.Lead, params *Params) (resp models.RequestResponse, err error) {
+	c.api.log("CreateLeads request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPost,
@@ -102,18 +102,18 @@ func (api *API) CreateLeads(lead *[]models.Lead, params *Params) (resp models.Re
 		Out:     &resp,
 		Params:  params,
 	}
-	err = api.makeRequest(options)
+	err = c.api.makeRequest(options)
 	if err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	log.Println(lead)
 	return
 }
 
-func (api *API) CreateLeadsComplex(lead *[]models.Lead) (resp []models.LeadComplexResponse, err error) {
-	api.log("CreateLeads request is started...")
+func (c *Create) LeadsComplex(lead *[]models.Lead) (resp []models.LeadComplexResponse, err error) {
+	c.api.log("CreateLeads request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPost,
@@ -122,17 +122,17 @@ func (api *API) CreateLeadsComplex(lead *[]models.Lead) (resp []models.LeadCompl
 		Out:     &resp,
 		Params:  nil,
 	}
-	err = api.makeRequest(options)
+	err = c.api.makeRequest(options)
 	if err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) ModifyLead(id string, lead *models.Lead, params *Params) (resp models.LeadModifyResponse, err error) {
-	api.log("ModifyLead request started...")
+func (c *Update) Lead(id string, lead *models.Lead, params *Params) (resp models.LeadModifyResponse, err error) {
+	c.api.log("ModifyLead request started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPatch,
@@ -141,11 +141,11 @@ func (api *API) ModifyLead(id string, lead *models.Lead, params *Params) (resp m
 		Out:     &resp,
 		Params:  params,
 	}
-	err = api.makeRequest(options)
+	err = c.api.makeRequest(options)
 	if err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }

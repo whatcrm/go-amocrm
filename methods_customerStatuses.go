@@ -6,8 +6,8 @@ import (
 	"log"
 )
 
-func (api *API) GetCustomerStatuses(statusID string) (out []models.CustomerStatus, err error) {
-	api.log("GetCustomerStatuses request is started...")
+func (c *Get) CustomerStatuses(statusID string) (out []models.CustomerStatus, err error) {
+	c.api.log("GetCustomerStatuses request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodGet,
@@ -22,7 +22,7 @@ func (api *API) GetCustomerStatuses(statusID string) (out []models.CustomerStatu
 		options.Out = &models.MainResponse{}
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
@@ -34,12 +34,12 @@ func (api *API) GetCustomerStatuses(statusID string) (out []models.CustomerStatu
 	}
 
 	log.Println(out)
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) CreateCustomerStatus(statuses []models.CustomerStatus) (out models.MainResponse, err error) {
-	api.log("CreateCustomerStatus request is started...")
+func (c *Create) CustomerStatus(statuses []models.CustomerStatus) (out models.MainResponse, err error) {
+	c.api.log("CreateCustomerStatus request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPost,
@@ -49,15 +49,15 @@ func (api *API) CreateCustomerStatus(statuses []models.CustomerStatus) (out mode
 		Params:  nil,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) ModifyCustomerStatus(statusID string, in *models.CustomerStatus) (out models.CustomerStatus, err error) {
-	api.log("ModifyCustomerStatus request is started...")
+func (c *Update) CustomerStatus(statusID string, in *models.CustomerStatus) (out models.CustomerStatus, err error) {
+	c.api.log("ModifyCustomerStatus request is started...")
 
 	if statusID == "" {
 		err = fiber.ErrBadRequest
@@ -72,15 +72,15 @@ func (api *API) ModifyCustomerStatus(statusID string, in *models.CustomerStatus)
 		Params:  nil,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) RemoveCustomerStatus(statusID string) (err error) {
-	api.log("ModifyCustomerStatus request is started...")
+func (c *Delete) CustomerStatus(statusID string) (err error) {
+	c.api.log("ModifyCustomerStatus request is started...")
 
 	if statusID == "" {
 		err = fiber.ErrBadRequest
@@ -95,9 +95,9 @@ func (api *API) RemoveCustomerStatus(statusID string) (err error) {
 		Params:  nil,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }

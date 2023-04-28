@@ -6,8 +6,8 @@ import (
 	"github.com/whatcrm/go-amocrm/models"
 )
 
-func (api *API) CustomersMode(in models.CustomersMode) (out models.CustomersMode, err error) {
-	api.log("CustomersMode request is started...")
+func (c *Create) CustomersMode(in models.CustomersMode) (out models.CustomersMode, err error) {
+	c.api.log("CustomersMode request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPatch,
@@ -17,16 +17,16 @@ func (api *API) CustomersMode(in models.CustomersMode) (out models.CustomersMode
 		Params:  nil,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) GetCustomers(customerID string, params *Params) (out []models.Customer, err error) {
-	api.log("GetCustomers request is started")
+func (c *Get) Customers(customerID string, params *Params) (out []models.Customer, err error) {
+	c.api.log("GetCustomers request is started")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodGet,
@@ -39,26 +39,26 @@ func (api *API) GetCustomers(customerID string, params *Params) (out []models.Cu
 	if customerID != "" {
 		// ID exists
 		options.BaseURL += "/" + customerID
-		if err = api.makeRequest(options); err != nil {
+		if err = c.api.makeRequest(options); err != nil {
 			return
 		}
 		out = []models.Customer{*options.Out.(*models.Customer)}
-		api.log("returning the struct...")
+		c.api.log("returning the struct...")
 		return
 	} else {
 		// All customers
 		options.Out = &models.RequestResponse{}
-		if err = api.makeRequest(options); err != nil {
+		if err = c.api.makeRequest(options); err != nil {
 			return
 		}
 		out = options.Out.(*models.RequestResponse).Embedded.Customers
-		api.log("returning the struct...")
+		c.api.log("returning the struct...")
 		return
 	}
 }
 
-func (api *API) CreateCustomer(in *[]models.Customer) (out models.RequestResponse, err error) {
-	api.log("CreateCustomer request is started...")
+func (c *Create) Customer(in *[]models.Customer) (out models.RequestResponse, err error) {
+	c.api.log("CreateCustomer request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPost,
@@ -68,16 +68,16 @@ func (api *API) CreateCustomer(in *[]models.Customer) (out models.RequestRespons
 		Params:  nil,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) ModifyCustomers(customerID string, in *[]models.Customer) (out models.CustomerResponse, err error) {
-	api.log("ModifyCustomers request is started")
+func (c *Update) Customers(customerID string, in *[]models.Customer) (out models.CustomerResponse, err error) {
+	c.api.log("ModifyCustomers request is started")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPatch,
@@ -93,16 +93,16 @@ func (api *API) ModifyCustomers(customerID string, in *[]models.Customer) (out m
 		options.In = (*in)[0]
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) GetTransactions(customerID, transactionID string, params *Params) (out []models.Transaction, err error) {
+func (c *Get) Transactions(customerID, transactionID string, params *Params) (out []models.Transaction, err error) {
 	// NOTE: params only for all transactions
-	api.log("GetTransactions request is started")
+	c.api.log("GetTransactions request is started")
 
 	url := customersURL + transactionsURL
 	if customerID != "" {
@@ -132,7 +132,7 @@ func (api *API) GetTransactions(customerID, transactionID string, params *Params
 		options.Out = &models.RequestResponse{}
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
@@ -141,12 +141,12 @@ func (api *API) GetTransactions(customerID, transactionID string, params *Params
 	} else {
 		out = options.Out.(*models.RequestResponse).Embedded.Transactions
 	}
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) SetTransaction(customerID string, t *[]models.Transaction) (out models.MainResponse, err error) {
-	api.log("SetTransaction request is started...")
+func (c *Create) Transaction(customerID string, t *[]models.Transaction) (out models.MainResponse, err error) {
+	c.api.log("SetTransaction request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPost,
@@ -156,16 +156,16 @@ func (api *API) SetTransaction(customerID string, t *[]models.Transaction) (out 
 		Params:  nil,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) RemoveTransaction(customerID, transactionID string) (err error) {
-	api.log("RemoveTransaction request is started...")
+func (c *Delete) Transaction(customerID, transactionID string) (err error) {
+	c.api.log("RemoveTransaction request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodDelete,
@@ -183,15 +183,15 @@ func (api *API) RemoveTransaction(customerID, transactionID string) (err error) 
 		return
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) SetBonusPoints(customerID string, value *models.BonusPoints) (out models.Points, err error) {
-	api.log("SetBonusPoints request is started...")
+func (c *Create) BonusPoints(customerID string, value *models.BonusPoints) (out models.Points, err error) {
+	c.api.log("SetBonusPoints request is started...")
 
 	if value.Redeem != 0 && value.Earn != 0 {
 		err = fmt.Errorf("both fields are not allowed")
@@ -206,9 +206,9 @@ func (api *API) SetBonusPoints(customerID string, value *models.BonusPoints) (ou
 		Params:  nil,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }

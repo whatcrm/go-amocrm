@@ -5,8 +5,8 @@ import (
 	"github.com/whatcrm/go-amocrm/models"
 )
 
-func (api *API) GetLinks(entity, entityID string, params *Params) (out models.RequestResponse, err error) {
-	api.log("GetLinks request is started...")
+func (c *Get) Links(entity, entityID string, params *Params) (out models.RequestResponse, err error) {
+	c.api.log("GetLinks request is started...")
 
 	var baseURL string
 	switch entity {
@@ -23,10 +23,10 @@ func (api *API) GetLinks(entity, entityID string, params *Params) (out models.Re
 		Params:  params,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }

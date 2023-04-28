@@ -6,8 +6,8 @@ import (
 	"log"
 )
 
-func (api *API) TokenUPD(oAuth *OAuth) (t *Tokens, err error) {
-	api.log("Refresh Token Updater is entered...")
+func (c *Create) TokenUPD(oAuth *OAuth) (t *Tokens, err error) {
+	c.api.log("Refresh Token Updater is entered...")
 	//a, req := api.getAgent(fiber.MethodPost, accessTokenURL, nil)
 
 	fmt.Printf("%+v\n", oAuth)
@@ -21,18 +21,18 @@ func (api *API) TokenUPD(oAuth *OAuth) (t *Tokens, err error) {
 		Params:  nil,
 	}
 
-	errs := api.makeRequest(options)
+	errs := c.api.makeRequest(options)
 	if errs != nil {
 		return nil, fmt.Errorf("few errors: %v", errs)
 	}
 
-	api.log("Refresh Token updated...")
+	c.api.log("Refresh Token updated...")
 	return
 }
 
-func (api *API) GetAccount(params *Params) (acc Account, err error) {
+func (c *Get) GetAccount(params *Params) (acc Account, err error) {
 	// INFO - PARAMETERS: WITH
-	api.log("GetAccount request is started...")
+	c.api.log("GetAccount request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodGet,
@@ -41,17 +41,17 @@ func (api *API) GetAccount(params *Params) (acc Account, err error) {
 		Out:     &acc,
 		Params:  params,
 	}
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	log.Printf("%+v", acc)
 	return
 }
 
-func (api *API) SubdomainFromToken() (acc OauthAccount, err error) {
-	api.log("OAuthAccount request is started...")
+func (c *Get) SubdomainFromToken() (acc OauthAccount, err error) {
+	c.api.log("OAuthAccount request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodGet,
@@ -59,11 +59,11 @@ func (api *API) SubdomainFromToken() (acc OauthAccount, err error) {
 		In:      nil,
 		Out:     &acc,
 	}
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	log.Printf("%+v", acc)
 	return
 }

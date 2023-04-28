@@ -5,8 +5,8 @@ import (
 	"github.com/whatcrm/go-amocrm/models"
 )
 
-func (api *API) CreateTag(entity string, tag *[]models.Tag) (out models.RequestResponse, err error) {
-	api.log("CreateTag request started...")
+func (c *Create) Tag(entity string, tag *[]models.Tag) (out models.RequestResponse, err error) {
+	c.api.log("CreateTag request started...")
 
 	if entity == "" {
 		err = fiber.ErrBadRequest
@@ -21,10 +21,10 @@ func (api *API) CreateTag(entity string, tag *[]models.Tag) (out models.RequestR
 		Params:  nil,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }

@@ -5,8 +5,8 @@ import (
 	"github.com/whatcrm/go-amocrm/models"
 )
 
-func (api *API) GetContacts(contactID string, params *Params) (out []models.Contact, err error) {
-	api.log("GetContacts request is started...")
+func (c *Get) Contacts(contactID string, params *Params) (out []models.Contact, err error) {
+	c.api.log("GetContacts request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodGet,
@@ -18,7 +18,7 @@ func (api *API) GetContacts(contactID string, params *Params) (out []models.Cont
 
 	if contactID != "" {
 		options.BaseURL += "/" + contactID
-		if err = api.makeRequest(options); err != nil {
+		if err = c.api.makeRequest(options); err != nil {
 			return
 		}
 		out = []models.Contact{*options.Out.(*models.Contact)}
@@ -26,18 +26,18 @@ func (api *API) GetContacts(contactID string, params *Params) (out []models.Cont
 
 	if contactID == "" {
 		options.Out = &models.RequestResponse{}
-		if err = api.makeRequest(options); err != nil {
+		if err = c.api.makeRequest(options); err != nil {
 			return
 		}
 		out = options.Out.(*models.RequestResponse).Embedded.Contacts
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) CreateContact(in []models.Contact) (out models.RequestResponse, err error) {
-	api.log("CreateContact request is started...")
+func (c *Create) Contact(in []models.Contact) (out models.RequestResponse, err error) {
+	c.api.log("CreateContact request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPost,
@@ -47,16 +47,16 @@ func (api *API) CreateContact(in []models.Contact) (out models.RequestResponse, 
 		Params:  nil,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) ModifyContacts(contactID string, in []models.Contact) (out []models.Contact, err error) {
-	api.log("ModifyContacts request is started...")
+func (c *Update) Contacts(contactID string, in []models.Contact) (out []models.Contact, err error) {
+	c.api.log("ModifyContacts request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPatch,
@@ -69,7 +69,7 @@ func (api *API) ModifyContacts(contactID string, in []models.Contact) (out []mod
 	if contactID != "" {
 		options.BaseURL += "/" + contactID
 		options.In = in[0]
-		if err = api.makeRequest(options); err != nil {
+		if err = c.api.makeRequest(options); err != nil {
 			return
 		}
 		out = []models.Contact{*options.Out.(*models.Contact)}
@@ -77,18 +77,18 @@ func (api *API) ModifyContacts(contactID string, in []models.Contact) (out []mod
 
 	if contactID == "" {
 		options.Out = &models.RequestResponse{}
-		if err = api.makeRequest(options); err != nil {
+		if err = c.api.makeRequest(options); err != nil {
 			return
 		}
 		out = options.Out.(*models.RequestResponse).Embedded.Contacts
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) GetContactChats(contactID, chatID string) (out models.RequestResponse, err error) {
-	api.log("GetContactChats request is started...")
+func (c *Get) ContactChats(contactID, chatID string) (out models.RequestResponse, err error) {
+	c.api.log("GetContactChats request is started...")
 
 	p := &Params{
 		ContactID: contactID,
@@ -103,15 +103,15 @@ func (api *API) GetContactChats(contactID, chatID string) (out models.RequestRes
 		Params:  p,
 	}
 
-	api.getAgent(options.Method, options.BaseURL, options.Params)
+	c.api.getAgent(options.Method, options.BaseURL, options.Params)
 	//req.RequestURI()
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) ConnectChatToContact(in *[]models.Chat) (out models.RequestResponse, err error) {
-	api.log("ConnectChatToContact request is started...")
+func (c *Create) ConnectChatToContact(in *[]models.Chat) (out models.RequestResponse, err error) {
+	c.api.log("ConnectChatToContact request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPatch,
@@ -120,10 +120,10 @@ func (api *API) ConnectChatToContact(in *[]models.Chat) (out models.RequestRespo
 		Out:     &out,
 		Params:  nil,
 	}
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }

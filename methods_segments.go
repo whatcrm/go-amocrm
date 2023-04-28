@@ -5,8 +5,8 @@ import (
 	"github.com/whatcrm/go-amocrm/models"
 )
 
-func (api *API) CustomerSegmentsList(segmentID string) (out models.MainResponse, err error) {
-	api.log("CustomerSegmentsList request is started...")
+func (c *Get) CustomerSegmentsList(segmentID string) (out models.MainResponse, err error) {
+	c.api.log("CustomerSegmentsList request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodGet,
@@ -20,11 +20,11 @@ func (api *API) CustomerSegmentsList(segmentID string) (out models.MainResponse,
 		options.BaseURL += "/" + segmentID
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 

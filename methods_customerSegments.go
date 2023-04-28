@@ -5,8 +5,8 @@ import (
 	"github.com/whatcrm/go-amocrm/models"
 )
 
-func (api *API) GetCustomerSegments(segmentID string) (out []models.CustomerSegment, err error) {
-	api.log("CustomerSegmentsList request is started...")
+func (c *Get) CustomerSegments(segmentID string) (out []models.CustomerSegment, err error) {
+	c.api.log("CustomerSegmentsList request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodGet,
@@ -22,7 +22,7 @@ func (api *API) GetCustomerSegments(segmentID string) (out []models.CustomerSegm
 		options.Out = &models.MainResponse{}
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
@@ -33,12 +33,12 @@ func (api *API) GetCustomerSegments(segmentID string) (out []models.CustomerSegm
 
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) CreateCustomerSegment(in *models.CustomerSegment) (err error) {
-	api.log("CreateCustomerSegment request is started...")
+func (c *Create) CustomerSegment(in *models.CustomerSegment) (err error) {
+	c.api.log("CreateCustomerSegment request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPost,
@@ -48,16 +48,16 @@ func (api *API) CreateCustomerSegment(in *models.CustomerSegment) (err error) {
 		Params:  nil,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) ModifyCustomerSegment(segmentID string, in *models.CustomerSegment) (out models.CustomerSegment, err error) {
-	api.log("ModifyCustomerSegment request is started...")
+func (c *Update) CustomerSegment(segmentID string, in *models.CustomerSegment) (out models.CustomerSegment, err error) {
+	c.api.log("ModifyCustomerSegment request is started...")
 
 	if segmentID == "" {
 		err = fiber.ErrBadRequest
@@ -72,16 +72,16 @@ func (api *API) ModifyCustomerSegment(segmentID string, in *models.CustomerSegme
 		Params:  nil,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
 
-func (api *API) RemoveCustomerSegment(segmentID string) (err error) {
-	api.log("CustomersMode request is started...")
+func (c *Delete) CustomerSegment(segmentID string) (err error) {
+	c.api.log("CustomersMode request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodDelete,
@@ -90,10 +90,10 @@ func (api *API) RemoveCustomerSegment(segmentID string) (err error) {
 		Out:     nil,
 	}
 
-	if err = api.makeRequest(options); err != nil {
+	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
 
-	api.log("returning the struct...")
+	c.api.log("returning the struct...")
 	return
 }
