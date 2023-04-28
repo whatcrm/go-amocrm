@@ -1,5 +1,5 @@
 #  go-amocrm
-![amoCRM API Library](.github/logo.png?raw=true)
+![amoCRM API Library](.github/amo-logo.png?raw=true)
 
 **go-amocrm** is a Rest API for amoCRM and Kommo. You can manage
 your application with this library. It contains almost every
