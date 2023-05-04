@@ -203,6 +203,6 @@ func (api *API) log(message ...interface{}) {
 }
 
 func isRegex(text string) bool {
-	re := regexp.MustCompile("^[a-zA-z]{1,}\\.(bitrix|amocrm)\\.(ru|com|kz|kg)")
+	re := regexp.MustCompile("^[a-zA-z0-9]{1,}\\.(bitrix|amocrm)\\.(ru|com|kz|kg)")
 	return re.MatchString(text)
 }
