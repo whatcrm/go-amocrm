@@ -2,6 +2,7 @@ package models
 
 type Contact struct {
 	ID                 int             `json:"id,omitempty"`
+	IsMain             bool            `json:"is_main"`
 	Name               string          `json:"name,omitempty"`
 	FirstName          string          `json:"first_name,omitempty"`
 	LastName           string          `json:"last_name,omitempty"`
