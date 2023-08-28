@@ -43,13 +43,9 @@ type Lead struct {
 }
 
 type LeadEmbedded struct {
-	Tags      []LeadEmbeddedData `json:"tags,omitempty"`
-	Companies []LeadEmbeddedData `json:"companies,omitempty"`
-	Contacts  []LeadEmbeddedData `json:"contacts,omitempty"`
-}
-
-type LeadEmbeddedData struct {
-	ID int `json:"id"`
+	Tags      []Tag     `json:"tags,omitempty"`
+	Companies []Company `json:"companies,omitempty"`
+	Contacts  []Contact `json:"contacts,omitempty"`
 }
 
 type LeadComplexResponse struct {
