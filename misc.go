@@ -175,6 +175,12 @@ func isParams(req *fiber.Request, domain string, parameter string, params *Param
 		q.Set("with", strings.Join(withSlice, ","))
 	}
 
+	if params.Filter != nil {
+        for key, value := range params.Filter {
+            q.Set("filter["+key+"]", value)
+        }
+    }
+
 	s := reflect.TypeOf(*params)
 	v := reflect.ValueOf(*params)
 	for i := 0; i < s.NumField(); i++ {
