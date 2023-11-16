@@ -29,7 +29,6 @@ func (api *API) getAgent(method, baseURL string, params *Params) (*fiber.Agent, 
 func (api *API) makeRequest(options makeRequestOptions) (err error) {
 
 	a, req := api.getAgent(options.Method, options.BaseURL, options.Params)
-	api.log("req new: %v", req)
 
 	if options.In != nil {
 		api.log("marshaling the data...")
