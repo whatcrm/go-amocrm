@@ -187,10 +187,17 @@ func isParams(req *fiber.Request, domain string, parameter string, params *Param
 		if field.Name == "ChatID" {
 			field.Name = "chat_id"
 		}
-		if value != "" && field.Type != reflect.TypeOf(With{}) {
+		if value != "" && field.Type != reflect.TypeOf(With{}) && field.Name != "Filter" {
 			q.Set(strings.ToLower(field.Name), value)
 		}
 	}
+
+	if params.Filter != nil {
+        for key, value := range params.Filter {
+            q.Set("filter["+key+"]", value)
+        }
+    }
+
 	u.RawQuery = q.Encode()
 	req.SetRequestURI(u.String())
 	return req
