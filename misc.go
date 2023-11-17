@@ -79,6 +79,8 @@ func statusChecker(status int) error {
 		return fiber.ErrForbidden
 	case 404:
 		return fiber.ErrNotFound
+	case 429:
+		return fiber.ErrTooManyRequests
 	case 201:
 		return fiber.NewError(201, "Created")
 	case 204:
