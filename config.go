@@ -66,7 +66,7 @@ type Params struct {
 	Page      string
 	Limit     string
 	Query     string
-	Filter    string
+	Filter    map[string]string
 	Order     string
 	ContactID string
 	ChatID    string
