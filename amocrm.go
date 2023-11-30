@@ -14,20 +14,14 @@ func NewAPI(clientID, clientSecret, redirectURI string) *API {
 }
 
 func (api *API) SetOptions(domain, accessToken string, debug bool) error {
-	if isRegex(domain) {
-		api.Domain = domain
-	} else {
-		return fmt.Errorf("domain name is not set")
-	}
 
-	if accessToken != "" {
-		api.AccessToken = accessToken
-	} else {
+	if accessToken == "" {
 		return fmt.Errorf("accessToken is not set")
 	}
 
+	api.Domain = domain
+	api.AccessToken = accessToken
 	api.Debug = debug
-
 	return nil
 }
 

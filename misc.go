@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/url"
 	"reflect"
-	"regexp"
 	"strings"
 )
 
@@ -103,8 +102,6 @@ func marshal(data interface{}, req *fiber.Request) (*fiber.Request, error) {
 }
 
 func fixURI(domain, path string) (string, string) {
-	//domain = " /https://checker.whatcrm.net//? "
-
 	// fixing the domain name
 	domain = strings.Trim(domain, " ")
 	domain = strings.Trim(domain, "/")
@@ -137,8 +134,6 @@ func fixURI(domain, path string) (string, string) {
 }
 
 func isParams(req *fiber.Request, domain string, parameter string, params *Params) *fiber.Request {
-	// TODO fix domain and parameter
-
 	domain, parameter = fixURI(domain, parameter)
 
 	if params == nil {
@@ -200,9 +195,4 @@ func (api *API) log(message ...interface{}) {
 	if api.Debug {
 		log.Println(message...)
 	}
-}
-
-func isRegex(text string) bool {
-	re := regexp.MustCompile("^[a-zA-z0-9]{1,}\\.(bitrix|amocrm)\\.(ru|com|kz|kg)")
-	return re.MatchString(text)
 }
