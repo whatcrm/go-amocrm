@@ -37,13 +37,13 @@ func (c *Get) Companies(companyID string, params *Params) (out []models.Company,
 }
 
 func (c *Create) Company(in []models.Company) (out models.RequestResponse, err error) {
-	c.api.log("CustomersMode request is started...")
+	c.api.log("CreateCompany request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPost,
 		BaseURL: companiesURL,
 		In:      in,
-		Out:     &models.Company{},
+		Out:     &out,
 		Params:  nil,
 	}
 
@@ -54,6 +54,7 @@ func (c *Create) Company(in []models.Company) (out models.RequestResponse, err e
 	c.api.log("returning the struct...")
 	return
 }
+
 
 func (c *Update) Company(companyID string, in *[]models.Company) (out []models.Company, err error) {
 	c.api.log("CustomersMode request is started...")
