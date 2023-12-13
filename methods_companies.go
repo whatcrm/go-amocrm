@@ -36,7 +36,7 @@ func (c *Get) Companies(companyID string, params *Params) (out []models.Company,
 	return
 }
 
-func (c *Create) Company(in *[]models.Company) (out []models.Company, err error) {
+func (c *Create) Company(in []models.Company) (out models.RequestResponse, err error) {
 	c.api.log("CustomersMode request is started...")
 
 	options := makeRequestOptions{
@@ -47,18 +47,8 @@ func (c *Create) Company(in *[]models.Company) (out []models.Company, err error)
 		Params:  nil,
 	}
 
-	if len(*in) <= 1 {
-		options.Out = &models.Company{}
-		if err = c.api.makeRequest(options); err != nil {
-			return
-		}
-		out = []models.Company{*options.Out.(*models.Company)}
-	} else {
-		options.Out = &models.RequestResponse{}
-		if err = c.api.makeRequest(options); err != nil {
-			return
-		}
-		out = options.Out.(*models.RequestResponse).Embedded.Companies
+	if err = c.api.makeRequest(options); err != nil {
+		return
 	}
 
 	c.api.log("returning the struct...")
