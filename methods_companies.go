@@ -16,6 +16,11 @@ func (c *Get) Companies(companyID string, params *Params) (out []models.Company,
 		Params:  params,
 	}
 
+		c.api.log("id")
+		c.api.log(companyID)
+		c.api.log("out")
+		c.api.log(out)
+
 	if companyID != "" {
 		options.BaseURL += "/" + companyID
 		if err = c.api.makeRequest(options); err != nil {
@@ -46,6 +51,10 @@ func (c *Create) Company(in []models.Company) (out models.RequestResponse, err e
 		Out:     &out,
 		Params:  nil,
 	}
+	c.api.log("in")
+	c.api.log(in)
+	c.api.log("out")
+	c.api.log(out)
 
 	if err = c.api.makeRequest(options); err != nil {
 		return
