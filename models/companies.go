@@ -8,7 +8,7 @@ type Company struct {
 	UpdatedBy         int             `json:"updated_by,omitempty"`
 	CreatedAt         int             `json:"created_at,omitempty"`
 	UpdatedAt         int             `json:"updated_at,omitempty"`
-	CustomFieldsValue any  `json:"custom_fields_value,omitempty"`
+	CustomFieldsValue []CustomFields  `json:"custom_fields_value,omitempty"`
 	CompanyEmbedded   CompanyEmbedded `json:"_embedded,omitempty"`
 	RequestID         string          `json:"request_id,omitempty"`
 	Links             struct {
