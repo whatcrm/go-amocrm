@@ -6,7 +6,7 @@ import (
 )
 
 func (c *Get) Companies(companyID string, params *Params) (out []models.Company, err error) {
-	c.api.log("CustomersMode request is started...")
+	c.api.log("Get Companies request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodGet,
@@ -36,8 +36,8 @@ func (c *Get) Companies(companyID string, params *Params) (out []models.Company,
 	return
 }
 
-func (c *Create) Company(in *[]models.Company) (out []models.Company, err error) {
-	c.api.log("CustomersMode request is started...")
+func (c *Create) Companies(in []models.Company) (out []models.Company, err error) {
+	c.api.log("Create Company request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPost,
@@ -47,25 +47,17 @@ func (c *Create) Company(in *[]models.Company) (out []models.Company, err error)
 		Params:  nil,
 	}
 
-	if len(*in) <= 1 {
-		options.Out = &models.Company{}
-		if err = c.api.makeRequest(options); err != nil {
-			return
-		}
-		out = []models.Company{*options.Out.(*models.Company)}
-	} else {
-		options.Out = &models.RequestResponse{}
-		if err = c.api.makeRequest(options); err != nil {
-			return
-		}
-		out = options.Out.(*models.RequestResponse).Embedded.Companies
+	options.Out = &models.RequestResponse{}
+	if err = c.api.makeRequest(options); err != nil {
+		return
 	}
+	out = options.Out.(*models.RequestResponse).Embedded.Companies
 
 	c.api.log("returning the struct...")
 	return
 }
 
-func (c *Update) Company(companyID string, in *[]models.Company) (out []models.Company, err error) {
+func (c *Update) Companies(companyID string, in []models.Company) (out []models.Company, err error) {
 	c.api.log("CustomersMode request is started...")
 
 	options := makeRequestOptions{
@@ -78,7 +70,7 @@ func (c *Update) Company(companyID string, in *[]models.Company) (out []models.C
 
 	if companyID != "" {
 		options.BaseURL += "/" + companyID
-		options.In = (*in)[0]
+		options.In = in[0]
 
 		if err = c.api.makeRequest(options); err != nil {
 			return

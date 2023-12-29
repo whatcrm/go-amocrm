@@ -12,6 +12,7 @@ type Company struct {
 	CompanyEmbedded    CompanyEmbedded `json:"_embedded,omitempty"`
 	RequestID          string          `json:"request_id,omitempty"`
 	Links              struct {
+		ID   int `json:"id,omitempty"`
 		Self struct {
 			Href string `json:"href,omitempty"`
 		} `json:"self,omitempty"`
@@ -19,5 +20,6 @@ type Company struct {
 }
 
 type CompanyEmbedded struct {
+	ID  int   `json:"id"`
 	Tag []Tag `json:"tags,omitempty"`
 }
