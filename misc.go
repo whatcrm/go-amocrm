@@ -78,6 +78,8 @@ func statusChecker(status int) error {
 		return fiber.ErrForbidden
 	case 404:
 		return fiber.ErrNotFound
+	case 429:
+		return fiber.ErrTooManyRequests
 	case 201:
 		return fiber.NewError(201, "Created")
 	case 204:
@@ -188,10 +190,10 @@ func isParams(req *fiber.Request, domain string, parameter string, params *Param
 	}
 
 	if params.Filter != nil {
-        for key, value := range params.Filter {
-            q.Set("filter["+key+"]", value)
-        }
-    }
+		for key, value := range params.Filter {
+			q.Set("filter["+key+"]", value)
+		}
+	}
 
 	u.RawQuery = q.Encode()
 	req.SetRequestURI(u.String())

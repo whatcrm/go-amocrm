@@ -20,6 +20,8 @@ type Company struct {
 }
 
 type CompanyEmbedded struct {
-	ID  int   `json:"id"`
-	Tag []Tag `json:"tags,omitempty"`
+	ID              int               `json:"id"`
+	Tag             []Tag             `json:"tags,omitempty"`
+	Contacts        []Contact         `json:"contacts,omitempty"`
+	CatalogElements []CatalogElements `json:"catalog_elements,omitempty"`
 }

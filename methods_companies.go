@@ -43,11 +43,10 @@ func (c *Create) Companies(in []models.Company) (out []models.Company, err error
 		Method:  fiber.MethodPost,
 		BaseURL: companiesURL,
 		In:      in,
-		Out:     &models.Company{},
+		Out:     &models.RequestResponse{},
 		Params:  nil,
 	}
 
-	options.Out = &models.RequestResponse{}
 	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
