@@ -19,7 +19,7 @@ type CustomFields struct {
 }
 
 type CustomFieldsValues struct {
-	Value    string `json:"value,omitempty"`
+	Value    any    `json:"value,omitempty"`
 	EnumID   int    `json:"enum_id,omitempty"`
 	EnumCode string `json:"enum_code,omitempty"`
 }
