@@ -1,9 +1,10 @@
 package amocrm
 
 import (
+	"log"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/whatcrm/go-amocrm/models"
-	"log"
 )
 
 // TODO GET Parameters in Requests - https://www.amocrm.ru/developers/content/crm_platform/leads-api#leads-list
@@ -26,7 +27,7 @@ func (c *Create) UnsortedSIP(in *[]models.UnsortedSIP) (out *models.MainResponse
 	return
 }
 
-func (c *Get) Unsorted(id string, params *Params) (unsorted []models.Unsorted, err error) {
+func (c *Get) Unsorted(id string, params *Params) (out models.RequestResponse, err error) {
 	c.api.log("GetUnsorted request is started...")
 
 	options := makeRequestOptions{
@@ -43,22 +44,28 @@ func (c *Get) Unsorted(id string, params *Params) (unsorted []models.Unsorted, e
 		if err = c.api.makeRequest(options); err != nil {
 			return
 		}
-		unsorted = []models.Unsorted{*options.Out.(*models.Unsorted)}
-		c.api.log("returning the struct...")
-		return
-	} else {
-		// All unsorted leads
-		options.Out = &models.RequestResponse{}
-		if err = c.api.makeRequest(options); err != nil {
-			return
+
+		out = models.RequestResponse{
+			Embedded: &models.ResponseEmbedded{
+				Unsorted: []models.Unsorted{
+					*options.Out.(*models.Unsorted),
+				},
+			},
 		}
-		unsorted = options.Out.(*models.RequestResponse).Embedded.Unsorted
 		c.api.log("returning the struct...")
 		return
 	}
+
+	// All unsorted leads
+	options.Out = &out
+	if err = c.api.makeRequest(options); err != nil {
+		return
+	}
+	c.api.log("returning the struct...")
+	return
 }
 
-func (c *Get) Leads(id string, params *Params) (lead []models.Lead, err error) {
+func (c *Get) Leads(id string, params *Params) (out models.RequestResponse, err error) {
 	c.api.log("GetLead request is started...")
 
 	options := makeRequestOptions{
@@ -76,20 +83,28 @@ func (c *Get) Leads(id string, params *Params) (lead []models.Lead, err error) {
 		if err != nil {
 			return
 		}
-		lead = []models.Lead{*options.Out.(*models.Lead)}
-		c.api.log("returning the struct...")
-		return
-	} else {
-		// All leads
-		options.Out = &models.RequestResponse{}
-		err = c.api.makeRequest(options)
-		if err != nil {
-			return
+
+		out = models.RequestResponse{
+			Embedded: &models.ResponseEmbedded{
+				Leads: []models.Lead{
+					*options.Out.(*models.Lead),
+				},
+			},
 		}
-		lead = options.Out.(*models.RequestResponse).Embedded.Leads
 		c.api.log("returning the struct...")
 		return
 	}
+
+	// All leads
+	options.Out = &out
+	err = c.api.makeRequest(options)
+	if err != nil {
+		return
+	}
+
+	c.api.log("returning the struct...")
+	return
+
 }
 
 func (c *Create) Leads(lead *[]models.Lead, params *Params) (resp models.RequestResponse, err error) {

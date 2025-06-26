@@ -2,6 +2,7 @@ package amocrm
 
 import (
 	"fmt"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/whatcrm/go-amocrm/models"
 )
@@ -25,7 +26,7 @@ func (c *Create) CustomersMode(in models.CustomersMode) (out models.CustomersMod
 	return
 }
 
-func (c *Get) Customers(customerID string, params *Params) (out []models.Customer, err error) {
+func (c *Get) Customers(customerID string, params *Params) (out *models.RequestResponse, err error) {
 	c.api.log("GetCustomers request is started")
 
 	options := makeRequestOptions{
@@ -42,19 +43,24 @@ func (c *Get) Customers(customerID string, params *Params) (out []models.Custome
 		if err = c.api.makeRequest(options); err != nil {
 			return
 		}
-		out = []models.Customer{*options.Out.(*models.Customer)}
-		c.api.log("returning the struct...")
-		return
-	} else {
-		// All customers
-		options.Out = &models.RequestResponse{}
-		if err = c.api.makeRequest(options); err != nil {
-			return
+		out = &models.RequestResponse{
+			Embedded: &models.ResponseEmbedded{
+				Customers: []models.Customer{
+					*options.Out.(*models.Customer),
+				},
+			},
 		}
-		out = options.Out.(*models.RequestResponse).Embedded.Customers
 		c.api.log("returning the struct...")
 		return
 	}
+
+	// All customers
+	options.Out = &out
+	if err = c.api.makeRequest(options); err != nil {
+		return
+	}
+	c.api.log("returning the struct...")
+	return
 }
 
 func (c *Create) Customer(in *[]models.Customer) (out models.RequestResponse, err error) {
@@ -100,7 +106,7 @@ func (c *Update) Customers(customerID string, in *[]models.Customer) (out models
 	return
 }
 
-func (c *Get) Transactions(customerID, transactionID string, params *Params) (out []models.Transaction, err error) {
+func (c *Get) Transactions(customerID, transactionID string, params *Params) (out *models.RequestResponse, err error) {
 	// NOTE: params only for all transactions
 	c.api.log("GetTransactions request is started")
 
@@ -116,7 +122,7 @@ func (c *Get) Transactions(customerID, transactionID string, params *Params) (ou
 		Method:  fiber.MethodGet,
 		BaseURL: url,
 		In:      nil,
-		Out:     &models.RequestResponse{},
+		Out:     &out,
 	}
 
 	if transactionID == "" && customerID == "" {
@@ -137,10 +143,15 @@ func (c *Get) Transactions(customerID, transactionID string, params *Params) (ou
 	}
 
 	if transactionID != "" {
-		out = []models.Transaction{*options.Out.(*models.Transaction)}
-	} else {
-		out = options.Out.(*models.RequestResponse).Embedded.Transactions
+		out = &models.RequestResponse{
+			Embedded: &models.ResponseEmbedded{
+				Transactions: []models.Transaction{
+					*options.Out.(*models.Transaction),
+				},
+			},
+		}
 	}
+
 	c.api.log("returning the struct...")
 	return
 }

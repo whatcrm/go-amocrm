@@ -25,20 +25,22 @@ type CustomFieldsValues struct {
 }
 
 type RequestResponse struct {
-	TotalItems int           `json:"_total_items,omitempty"`
-	Page       int           `json:"_page,omitempty"`
-	Links      *LinkResponse `json:"_links,omitempty"`
-	Embedded   struct {
-		Contacts     []Contact     `json:"contacts,omitempty"`
-		Companies    []Company     `json:"companies,omitempty"`
-		Leads        []Lead        `json:"leads,omitempty"`
-		Tags         []Tag         `json:"tags,omitempty"`
-		Unsorted     []Unsorted    `json:"unsorted,omitempty"`
-		Customers    []Customer    `json:"customers,omitempty"`
-		Transactions []Transaction `json:"transactions,omitempty"`
-		Chats        []Chat        `json:"chats,omitempty"`
-		Links        []Link        `json:"links"`
-	} `json:"_embedded,omitempty"`
+	TotalItems int               `json:"_total_items,omitempty"`
+	Page       int               `json:"_page,omitempty"`
+	Links      *LinkResponse     `json:"_links,omitempty"`
+	Embedded   *ResponseEmbedded `json:"_embedded,omitempty"`
+}
+
+type ResponseEmbedded struct {
+	Contacts     []Contact     `json:"contacts,omitempty"`
+	Companies    []Company     `json:"companies,omitempty"`
+	Leads        []Lead        `json:"leads,omitempty"`
+	Tags         []Tag         `json:"tags,omitempty"`
+	Unsorted     []Unsorted    `json:"unsorted,omitempty"`
+	Customers    []Customer    `json:"customers,omitempty"`
+	Transactions []Transaction `json:"transactions,omitempty"`
+	Chats        []Chat        `json:"chats,omitempty"`
+	Links        []Link        `json:"links"`
 }
 
 type Response struct {

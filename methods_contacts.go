@@ -5,7 +5,7 @@ import (
 	"github.com/whatcrm/go-amocrm/models"
 )
 
-func (c *Get) Contacts(contactID string, params *Params) (out []models.Contact, err error) {
+func (c *Get) Contacts(contactID string, params *Params) (out models.RequestResponse, err error) {
 	c.api.log("GetContacts request is started...")
 
 	options := makeRequestOptions{
@@ -21,15 +21,21 @@ func (c *Get) Contacts(contactID string, params *Params) (out []models.Contact, 
 		if err = c.api.makeRequest(options); err != nil {
 			return
 		}
-		out = []models.Contact{*options.Out.(*models.Contact)}
+		out = models.RequestResponse{
+			Embedded: &models.ResponseEmbedded{
+				Contacts: []models.Contact{
+					*options.Out.(*models.Contact),
+				},
+			},
+		}
+
+		c.api.log("returning the struct...")
+		return
 	}
 
-	if contactID == "" {
-		options.Out = &models.RequestResponse{}
-		if err = c.api.makeRequest(options); err != nil {
-			return
-		}
-		out = options.Out.(*models.RequestResponse).Embedded.Contacts
+	options.Out = &out
+	if err = c.api.makeRequest(options); err != nil {
+		return
 	}
 
 	c.api.log("returning the struct...")
@@ -104,8 +110,6 @@ func (c *Get) ContactChats(contactID, chatID string) (out models.RequestResponse
 	}
 
 	c.api.getAgent(options.Method, options.BaseURL, options.Params)
-	//req.RequestURI()
-
 	c.api.log("returning the struct...")
 	return
 }
@@ -120,10 +124,10 @@ func (c *Create) ConnectChatToContact(in *[]models.Chat) (out models.RequestResp
 		Out:     &out,
 		Params:  nil,
 	}
+
 	if err = c.api.makeRequest(options); err != nil {
 		return
 	}
-
 	c.api.log("returning the struct...")
 	return
 }
