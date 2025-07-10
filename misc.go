@@ -2,11 +2,12 @@ package amocrm
 
 import (
 	"encoding/json"
-	"github.com/gofiber/fiber/v2"
 	"log"
 	"net/url"
 	"reflect"
 	"strings"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func (api *API) getAgent(method, baseURL string, params *Params) (*fiber.Agent, *fiber.Request) {
@@ -164,6 +165,9 @@ func isParams(req *fiber.Request, domain string, parameter string, params *Param
 	}
 	if params.With.Companies {
 		withSlice = append(withSlice, "companies")
+	}
+	if params.With.Customers {
+		withSlice = append(withSlice, "customers")
 	}
 	if params.With.CatalogElements {
 		withSlice = append(withSlice, "catalog_elements")

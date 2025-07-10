@@ -77,4 +77,5 @@ type With struct {
 	Contacts        bool
 	Leads           bool
 	Companies       bool
+	Customers       bool
 }
