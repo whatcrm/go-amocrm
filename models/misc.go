@@ -41,6 +41,7 @@ type ResponseEmbedded struct {
 	Transactions []Transaction `json:"transactions,omitempty"`
 	Chats        []Chat        `json:"chats,omitempty"`
 	Links        []Link        `json:"links"`
+	Tasks        []Task        `json:"tasks"`
 }
 
 type Response struct {

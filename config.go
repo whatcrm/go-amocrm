@@ -48,6 +48,11 @@ const (
 	CustomerModePeriodicity = "periodicity"
 )
 
+// Tasks Contants
+const (
+	tasksURL = "api/v4/tasks"
+)
+
 type makeRequestOptions struct {
 	// Method is a request's method
 	Method string
