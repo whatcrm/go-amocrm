@@ -6,7 +6,7 @@ import (
 )
 
 func (c *Get) Tasks(taskID string, params *Params) (out models.RequestResponse, err error) {
-	c.api.log("GetContacts request is started...")
+	c.api.log("GetTasks request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodGet,
@@ -43,7 +43,7 @@ func (c *Get) Tasks(taskID string, params *Params) (out models.RequestResponse, 
 }
 
 func (c *Create) Tasks(in []models.Task) (out models.RequestResponse, err error) {
-	c.api.log("CreateContact request is started...")
+	c.api.log("CreateTasks request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPost,
@@ -62,7 +62,7 @@ func (c *Create) Tasks(in []models.Task) (out models.RequestResponse, err error)
 }
 
 func (c *Update) Tasks(taskID string, in []models.Task) (out []models.Task, err error) {
-	c.api.log("ModifyContacts request is started...")
+	c.api.log("ModifyTasks request is started...")
 
 	options := makeRequestOptions{
 		Method:  fiber.MethodPatch,
