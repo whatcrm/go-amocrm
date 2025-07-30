@@ -2,6 +2,7 @@ package amocrm
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/url"
 	"reflect"
@@ -187,6 +188,11 @@ func isParams(req *fiber.Request, domain string, parameter string, params *Param
 		}
 		if field.Name == "ChatID" {
 			field.Name = "chat_id"
+		}
+		if field.Name == "Order" && value != "" {
+			orderSetting := strings.Split(value, ",")
+			field.Name = fmt.Sprintf("order[%s]", orderSetting[0])
+			value = orderSetting[1]
 		}
 		if value != "" && field.Type != reflect.TypeOf(With{}) && field.Name != "Filter" {
 			q.Set(strings.ToLower(field.Name), value)
