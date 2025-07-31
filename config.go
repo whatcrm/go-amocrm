@@ -72,7 +72,7 @@ type Params struct {
 	Limit     string
 	Query     string
 	Filter    map[string]string
-	Order     string
+	Order     string //Format: "created_at,desc" [ 1 - field, 2 - direction]
 	ContactID string
 	ChatID    string
 }
