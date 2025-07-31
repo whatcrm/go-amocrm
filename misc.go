@@ -190,9 +190,13 @@ func isParams(req *fiber.Request, domain string, parameter string, params *Param
 			field.Name = "chat_id"
 		}
 		if field.Name == "Order" && value != "" {
-			orderSetting := strings.Split(value, ",")
-			field.Name = fmt.Sprintf("order[%s]", orderSetting[0])
-			value = orderSetting[1]
+			orderSetting := strings.SplitN(value, ",", 2)
+			if len(orderSetting) == 2 && orderSetting[0] != "" && orderSetting[1] != "" {
+				field.Name = fmt.Sprintf("order[%s]", orderSetting[0])
+				value = orderSetting[1]
+			} else {
+				value = ""
+			}
 		}
 		if value != "" && field.Type != reflect.TypeOf(With{}) && field.Name != "Filter" {
 			q.Set(strings.ToLower(field.Name), value)
